@@ -15,7 +15,7 @@ public:
         for (std::string::size_type i = 0; i <s.size(); ++i){
             int current = dict[s.substr(i, 1)];
             if (previous < current){
-                total = total - 2*previous + current;
+                total = total - 2 * previous + current;
             } else{
                 previous = current;
                 total = total + previous;
