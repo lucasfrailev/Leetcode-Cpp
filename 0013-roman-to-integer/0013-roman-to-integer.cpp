@@ -9,20 +9,15 @@ public:
         {"C", 100},
         {"D", 500},
         {"M", 1000},
-        {"IV", 4},
-        {"IX", 9},
-        {"XL", 40},
-        {"XC", 90},
-        {"CD", 400},
-        {"CM", 900},
     };
         int previous = 1000;
         int total = 0;
         for (std::string::size_type i = 0; i <s.size(); ++i){
-            if (previous < dict[s.substr(i, 1)]){
-                total = total - previous + dict[s.substr(i - 1, 2)];
+            int current = dict[s.substr(i, 1)];
+            if (previous < current){
+                total = total - 2*previous + current;
             } else{
-                previous = dict[s.substr(i, 1)];
+                previous = current;
                 total = total + previous;
             }
         }
