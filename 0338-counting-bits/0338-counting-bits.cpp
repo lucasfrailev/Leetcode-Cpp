@@ -6,14 +6,7 @@ public:
         cout.tie(NULL);
         vector<int> bits(n+1);
         for (int i = 0; i<n+1;i++){
-            bits[i] = 0;
-            int j = i;
-            while (j!=0){
-                if ((j & 1) == 1){
-                    bits[i]+=1;
-                }
-                j >>= 1;
-            }  
+            bits[i] = bits[i/2]+i%2; 
         }
         return bits;        
     }
