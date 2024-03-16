@@ -7,7 +7,7 @@ public:
         sort(nums.begin(),nums.end());
         set<vector<int>> my_set;
         vector<vector<int>> output;
-        int n = nums.size(), last_num = nums[0]+1;
+        int n = nums.size(), last_i = nums[0]+1, last_j = nums[1]+1, last_k = nums[n-1]-1;
         if (n<3){
             return {};
         }
@@ -15,7 +15,7 @@ public:
             if (nums[i]>0){
                 break;
             }
-            if (nums[i] == last_num){
+            if (nums[i] == last_i){
                 continue;
             }
             int j=i+1;
@@ -25,16 +25,27 @@ public:
                         break;
                 }
                 int sum = nums[i]+nums[j]+nums[k];
+                last_j=nums[j];
+                last_k=nums[k];
                 if (sum == 0){
                     my_set.insert({nums[i],nums[j],nums[k]});
                     j++;
+                    while (nums[j]==last_j && j<k){
+                        j++;
+                    }
                 } else if (sum<0){
                     j++;
+                    while (nums[j]==last_j && j<k){
+                        j++;
+                    }
                 } else {
                     k--;
+                    while (nums[k]==last_k && k>j){
+                        k--;
+                    }
                 }
             }
-            last_num = nums[i];
+            last_i = nums[i];
         }
         for (vector<int> set: my_set){
             output.push_back(set);
