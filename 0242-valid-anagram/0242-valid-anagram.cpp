@@ -4,8 +4,18 @@ public:
         ios_base::sync_with_stdio(false);
         cin.tie(NULL);
         cout.tie(NULL);
-        sort(s.begin(), s.end());
-        sort(t.begin(), t.end());
-        return s==t;   
+        if (s.size()!=t.size()) return false;
+        vector<int> count(26,0);
+        for (char letter:s){
+            count[letter-'a']++;
+        }
+        for (char letter:t){
+            count[letter-'a']--;
+            if (count[letter-'a']<0) return false;
+        }
+        for (int i = 0; i<26;i++){
+            if (count[i]!=0) return false;
+        }
+        return true;
     }
 };
