@@ -4,25 +4,46 @@ public:
         ios_base::sync_with_stdio(false);
         cin.tie(NULL);
         cout.tie(NULL);
-        vector<vector<string>> anagrams, aux_anagrams;
-        vector<string> aux_strs = strs;
+        unordered_map<int,vector<int>> lengths;
+        vector<vector<string>> anagrams;
         for(int i=0;i<strs.size();i++){
-            sort(strs[i].begin(),strs[i].end());
             bool aux_flag= false;
-            for(int j=0;j<anagrams.size();j++){
-                if (strs[i] == anagrams[j][0]){
-                    anagrams[j].push_back({strs[i]});
-                    aux_anagrams[j].push_back({aux_strs[i]});
-                    aux_flag = true;
-                    break;
+            if (lengths.contains(strs[i].size())){
+                for(int j:lengths[strs[i].size()]){
+                    if (isAnagram(strs[i],anagrams[j][0])){
+                        anagrams[j].push_back({strs[i]});
+                        aux_flag = true;
+                        break;
+                    }
                 }
-            }
-            
-            if (aux_flag == false){
-                anagrams.push_back({strs[i]});
-                aux_anagrams.push_back({aux_strs[i]});
+                if (aux_flag == false){
+                    anagrams.push_back({strs[i]});
+                    lengths[strs[i].size()].push_back(anagrams.size()-1);
+                }
+            } else {
+               anagrams.push_back({strs[i]});
+               lengths[strs[i].size()] = {int(anagrams.size()-1)}; 
             }
         }
-        return aux_anagrams;
+        return anagrams;
+    }
+    
+    bool isAnagram(string s, string t) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        cout.tie(NULL);
+        if (s.size()!=t.size()) return false;
+        vector<int> count(26,0);
+        for (char letter:s){
+            count[letter-'a']++;
+        }
+        for (char letter:t){
+            count[letter-'a']--;
+            if (count[letter-'a']<0) return false;
+        }
+        for (int i = 0; i<26;i++){
+            if (count[i]!=0) return false;
+        }
+        return true;
     }
 };
