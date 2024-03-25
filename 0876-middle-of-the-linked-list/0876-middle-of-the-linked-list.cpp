@@ -14,11 +14,9 @@ public:
         ListNode* i = head;
         ListNode* j = head;
         int k = 0;
-        while (j->next != NULL){
-            j = j->next;
-            if ((++k) % 2){
-                i = i->next;
-            }
+        while (j != nullptr && j->next != nullptr){
+            j = j->next->next;
+            i = i->next;
         }
         return i;
     }
