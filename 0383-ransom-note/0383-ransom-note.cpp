@@ -1,21 +1,13 @@
 class Solution {
 public:
     bool canConstruct(string ransomNote, string magazine) {
-        unordered_map<char,int> map;
+        vector<int> map(256,0);
         for(char c:magazine){
-            if (map.contains(c)){
-                map[c]+=1;
-            } else {
-                map[c] = 1;
-            }
+                map[c]++;
         }
         for (char c:ransomNote){
-            if (map.contains(c)){
-                map[c]-=1;
-                if (map[c]<0){
-                    return false;
-                }
-            } else {
+            map[c]--;
+            if (map[c]<0){
                 return false;
             }
         }
