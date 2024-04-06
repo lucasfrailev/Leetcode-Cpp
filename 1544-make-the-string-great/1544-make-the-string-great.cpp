@@ -3,24 +3,23 @@ public:
     string makeGood(string s) {
         if (s.empty() && s.size()<2) return s;
         char dist = 'A'-'a';
-        int flag = 0, reloop = 1;
+        int last = 0, next = 1;
         string ans;
-        while (reloop){
-            reloop = 0;
-            for (int i =0; i<s.size();i++){
-                if (((s[i]!=(s[i+1]+dist)) && ((s[i]+dist)!=(s[i+1]))) && !flag){                
-                    ans+=s[i];
-                    flag = 1;
-                } else if(((s[i]==(s[i+1]+dist)) || ((s[i]+dist)==(s[i+1]))) && !flag) {
-                    flag = 2;
-                    reloop = 1;
-                }
-                flag--;
+        ans+= s[last];
+        while (next<s.size()){
+            if ((ans[last] == (s[next]+dist)) || (ans[last]+dist == (s[next]))){
+                ans.pop_back();
+                last-=1;
+                next+=1;
+            } else {
+                ans+=s[next];
+                last+=1;
+                next+=1;
             }
-            cout << ans << endl;
-            if (reloop){
-            s = ans;
-            ans = {};
+            if (last<0 && next<s.size()){
+                last = 0;
+                ans+=s[next];
+                next+=1;
             }
         }
         return ans;
