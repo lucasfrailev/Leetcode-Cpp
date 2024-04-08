@@ -1,48 +1,34 @@
 class Solution {
 public:
+    struct trie{unordered_map<int, trie*> child;}; 
     int countDistinct(vector<int>& nums, int k, int p) {
-        map<vector<int>, int> subs;
-        int n = 0;
-        for (int i = 0; i < nums.size(); i++) {
-            for (int j = i; j < nums.size(); j++) {
-                vector<int> sub = std::vector<int>(nums.begin() + i, nums.begin() + j+1);
-                if (subs.contains(sub)) {
-                    continue;
-                } else if (!(nums[j] % p)) {
-                    if (sub.size() > 1) {
-                        sub.pop_back();
-                        if (subs[sub] + 1 <= k) {
-                            int prev = subs[sub];
-                            sub.push_back(nums[j]);
-                            subs[sub] = prev + 1;
-                            n++;
-                        } else {
-                            break;
-                        }
-                    } else if (k > 0) {
-                        subs[sub] = 1;
-                        n++;
-                    } else {
-                        break;
-                    }
-                } else {
-                    if (sub.size() > 1) {
-                        sub.pop_back();
-                        if (subs[sub] <= k) {
-                            int prev = subs[sub];
-                            sub.push_back(nums[j]);
-                            subs[sub] = prev;
-                            n++;
-                        } else {
-                            break;
-                        }
-                    } else {
-                        subs[sub] = 0;
-                        n++;
-                    }
+        trie *root = new trie, *current = root;
+        int n = nums.size(), subs = 0, count = 0;
+        
+        for (int i = 0; i<n; i++){
+            current = root;
+            count = 0;
+            for(int j = i; j<n; j++){
+                count += !(nums[j] % p);
+                if (current->child.contains(nums[j])){
+                    current = current->child[nums[j]];
+                } else if (count <= k){
+                    trie *new_child = new trie; 
+                    current->child[nums[j]] = new_child;
+                    current = current->child[nums[j]];
+                    subs++;
                 }
             }
         }
-        return n;
+        return subs;
     }
+    
+    int count_divisible(int n, int p, int t){
+     if (!(n % p)){
+         t++;
+        }
+     return t;
+ }
 };
+    
+    
