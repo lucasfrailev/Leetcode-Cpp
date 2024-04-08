@@ -22,13 +22,6 @@ public:
         }
         return subs;
     }
-    
-    int count_divisible(int n, int p, int t){
-     if (!(n % p)){
-         t++;
-        }
-     return t;
- }
 };
     
     
