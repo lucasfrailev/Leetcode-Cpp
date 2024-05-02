@@ -8,26 +8,22 @@ public:
                 case '+':
                     aux = auxvector.rbegin()[1] + auxvector.rbegin()[0];
                     auxvector.pop_back();
-                    auxvector.pop_back();
-                    auxvector.push_back(aux);
+                    auxvector.rbegin()[0] = aux;
                     break;
                 case '-':
                     aux = auxvector.rbegin()[1] - auxvector.rbegin()[0];
                     auxvector.pop_back();
-                    auxvector.pop_back();
-                    auxvector.push_back(aux);
+                    auxvector.rbegin()[0] = aux;
                     break;
                 case '/':
                     aux = auxvector.rbegin()[1] / auxvector.rbegin()[0];
                     auxvector.pop_back();
-                    auxvector.pop_back();
-                    auxvector.push_back(aux);
+                    auxvector.rbegin()[0] = aux;
                     break;
                 case '*':
                     aux = auxvector.rbegin()[1] * auxvector.rbegin()[0];
                     auxvector.pop_back();
-                    auxvector.pop_back();
-                    auxvector.push_back(aux);
+                    auxvector.rbegin()[0] = aux;
                     break;
                 default:
                     auxvector.push_back(stoi(tokens[i]));
