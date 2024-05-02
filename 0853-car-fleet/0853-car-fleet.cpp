@@ -3,8 +3,10 @@ public:
     int carFleet(int target, vector<int>& position, vector<int>& speed) {
         int n =position.size();
         vector<vector<int>> aux;
+        aux.resize(n);
         for(int i = 0;i<n;i++){
-            aux.push_back({position[i], i});
+            aux[i].resize(2);
+            aux[i] = {position[i], i};
         }
         sort(aux.begin(),aux.end());
         vector<float> time_to_target(n,0.0);
