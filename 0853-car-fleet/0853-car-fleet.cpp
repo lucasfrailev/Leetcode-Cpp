@@ -10,12 +10,10 @@ public:
         }
         sort(aux.begin(),aux.end());
         vector<float> time_to_target(n,0.0);
-        for (int i = 0;i<n;i++){
-            time_to_target[i] = float(target-aux[n-i-1][0])/float(speed[aux[n-i-1][1]]);
-        }
         float last_max_time = FLT_MIN;
         int ans = 0;
-        for(int i = 0;i<n;i++){
+        for (int i = 0;i<n;i++){
+            time_to_target[i] = float(target-aux[n-i-1][0])/float(speed[aux[n-i-1][1]]);
             if (time_to_target[i]>last_max_time){
                 last_max_time = time_to_target[i];
                 ans++;
