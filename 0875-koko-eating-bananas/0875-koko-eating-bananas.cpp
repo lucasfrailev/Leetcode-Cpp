@@ -1,9 +1,9 @@
 class Solution {
 public:
     int minEatingSpeed(vector<int>& piles, int h) {
-        sort(piles.begin(),piles.end());
-        if(h==piles.size()) return piles.back();
-        int r = piles.back(), l = 1, m = max((r+l)/2,1), last_k = m, time = 0;
+        int r = *max_element(piles.begin(), piles.end());
+        if(h==piles.size()) return r;
+        int l = 1, m = max((r+l)/2,1), last_k = m, time = 0;
         while(l<=r){
             for(int p : piles){
                 time+=  p/m + ((p-p/m*m)>0?1:0);
