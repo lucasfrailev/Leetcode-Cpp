@@ -1,29 +1,22 @@
 class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        vector<int> A;
-        vector<int> B;
-        if (nums1.size()>nums2.size()){
-            A = nums2;
-            B = nums1;
-        } else {
-            A = nums1;
-            B = nums2;
-        }
-        int l1 = 0, r1 = A.size()-1, m = A.size()+B.size(), half = m/2;
+        if(nums2.size()<nums1.size())
+             return findMedianSortedArrays(nums2,nums1);
+        int l1 = 0, r1 = nums1.size()-1, m = nums1.size()+nums2.size(), half = m/2;
         while(true){
             int m1 = int(floor(double((l1+r1)/2.0))), m2 = half-m1-2;
-            int Aleft = m1<0?INT_MIN:A[m1];
-            int Bleft = m2<0?INT_MIN:B[m2];
-            int Aright = (m1+1)>(int(A.size())-1)?INT_MAX:A[m1+1];
-            int Bright = (m2+1)>(int(B.size())-1)?INT_MAX:B[m2+1];
-            if (Aleft<=Bright && Bleft<=Aright){
+            int nums1left = m1<0?INT_MIN:nums1[m1];
+            int nums2left = m2<0?INT_MIN:nums2[m2];
+            int nums1right = (m1+1)>(int(nums1.size())-1)?INT_MAX:nums1[m1+1];
+            int nums2right = (m2+1)>(int(nums2.size())-1)?INT_MAX:nums2[m2+1];
+            if (nums1left<=nums2right && nums2left<=nums1right){
                 if (m-2*half == 1){
-                    return double(min(Aright,Bright));
+                    return double(min(nums1right,nums2right));
                 } else {
-                    return double(max(Aleft,Bleft)+min(Aright,Bright))/2.0;
+                    return double(max(nums1left,nums2left)+min(nums1right,nums2right))/2.0;
                 }
-            } else if (Aleft>Bright){
+            } else if (nums1left>nums2right){
                 r1 = m1-1;
             } else {
                 l1 = m1+1;
