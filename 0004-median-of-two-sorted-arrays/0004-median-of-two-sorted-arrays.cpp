@@ -11,10 +11,10 @@ public:
             int nums1right = (m1+1)>(int(nums1.size())-1)?INT_MAX:nums1[m1+1];
             int nums2right = (m2+1)>(int(nums2.size())-1)?INT_MAX:nums2[m2+1];
             if (nums1left<=nums2right && nums2left<=nums1right){
-                if (m-2*half == 1){
+                if (m%2){
                     return double(min(nums1right,nums2right));
                 } else {
-                    return double(max(nums1left,nums2left)+min(nums1right,nums2right))/2.0;
+                    return (max(nums1left,nums2left)+min(nums1right,nums2right))/2.0;
                 }
             } else if (nums1left>nums2right){
                 r1 = m1-1;
