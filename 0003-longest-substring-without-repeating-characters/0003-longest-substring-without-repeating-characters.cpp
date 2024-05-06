@@ -1,15 +1,22 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        unordered_set<char> unique;
-        int best = 0, index = 0;
+        string curr;
+        int best = 0;
         for(char c : s){
-            while (unique.contains(c)){
-                unique.erase(s[index]);
-                index++;
+            size_t it = curr.find(c);
+            if (it != string::npos){
+                if(curr.size()>best){
+                    best = curr.size();
+                }
+                curr.erase(curr.begin(),curr.begin()+it+1);
+                curr+=c;
+            } else {
+                curr+=c;
             }
-            unique.insert(c);
-            best = max(best,int(unique.size()));
+        }
+        if(curr.size()>best){
+            best = curr.size();
         }
         return best;
     }
