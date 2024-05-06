@@ -16,6 +16,7 @@ public:
             return "";
         } else{
             if (list[0].first > timestamp) return "";
+            if (list[r].first < timestamp) return list[r].second;
             string best = "";
             while(l<=r){
                 int m = l+(r-l)/2;
