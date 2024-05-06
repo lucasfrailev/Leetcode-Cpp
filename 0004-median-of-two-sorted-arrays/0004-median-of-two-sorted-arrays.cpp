@@ -5,7 +5,7 @@ public:
              return findMedianSortedArrays(nums2,nums1);
         int l1 = 0, r1 = nums1.size()-1, m = nums1.size()+nums2.size(), half = m/2;
         while(true){
-            int m1 = int(floor(((l1+r1)/2.0))), m2 = half-m1-2;
+            int m1 = int(floor(double((l1+r1)/2.0))), m2 = half-m1-2;
             int nums1left = m1<0?INT_MIN:nums1[m1];
             int nums2left = m2<0?INT_MIN:nums2[m2];
             int nums1right = (m1+1)>(int(nums1.size())-1)?INT_MAX:nums1[m1+1];
