@@ -10,13 +10,13 @@ public:
     }
     
     string get(string key, int timestamp) {
-        int r = time_key[key].size()-1;
+        int r = time_key[key].size()-1, l = 0;
         if (r==-1){
             return "";
         } else{
-            int l = 0, m = (r+l)/2;
             string best = "";
             while(l<=r){
+                int m = l+(r-l)/2;
                 if (time_key[key][m].first==timestamp){
                     return time_key[key][m].second;
                 }
@@ -26,10 +26,10 @@ public:
                 } else {
                     r = m-1;
                 }
-                m = (r+l)/2;
             }
             return best;
         }
+        return "";
     }
 };
 
